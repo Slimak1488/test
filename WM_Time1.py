@@ -16,10 +16,6 @@ def clock():
 def get_time():
     return jsonify(datetime.datetime.now().strftime('%H'), datetime.datetime.now().strftime('%M'))
 
-'''''''''
-@app.route("/min", methods=['GET'])
-def get_min():
-    return jsonify(datetime.datetime.now().strftime('%M'))
-'''''''''
+''''''''''''''''''
 
 app.run()
