@@ -16,6 +16,5 @@ def clock():
 def get_time():
     return jsonify(datetime.datetime.now().strftime('%H'), datetime.datetime.now().strftime('%M'))
 
-''''''''''''''''''
-
+#ffff
 app.run()
