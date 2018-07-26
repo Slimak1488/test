@@ -13,58 +13,29 @@
 
 			var g_nLastTime = null;
 
-
+ $(document).ready(function() {
 	  var socket = io.connect('http://' + document.domain + ':' + location.port);
 
 	socket.on('connect',function() {
-	console.log(1231);
+	console.log(1234);
+	socket.emit('my_event');
 	});
 
 
+
+
     socket.on('time',function(time) {
-    	var objDate = new Date();
+
+   		var objDate = new Date();
 		objDate.setHours(time.hour);
 		objDate.setMinutes(time.min);
 		console.log(objDate.getHours());
 		console.log(objDate.getMinutes());
-
-		var hourElementId ='hours';
-		var minuteElementId ='minutes';
-
-			// Проверяем параметры
-		if(!hourElementId || !minuteElementId) { return; }
-			// Получаем объекты элементов
-		var objHour = document.getElementById(hourElementId);
-		var objMinutes = document.getElementById(minuteElementId);
-		if (!objHour || !objMinutes) { return; }
-			// Получаем время
-		var nHour = objDate.getHours();
-		if (nHour > 12) { nHour -= 12; }  // Переключаемся с 24-х часовой системы на 12-и часовую
-		var nMinutes = objDate.getMinutes() ;
-
-			// Округляем время
-		var nRound = 5;
-		var nDiff = nMinutes % nRound;
-		if(nDiff != 0)
-		{
-			if (nDiff < 3) { nMinutes -= nDiff; } // Округление вниз
-			else { nMinutes += nRound - nDiff; } // Округление вверх
-		}
-		if(nMinutes > 59)
-		{
-			// Увеличиваем количество часов, если нужно
-			nHour++;
-			nMinutes = 0;
-		}
-			// Обновляем элементы страницы
-		objHour.className = 'hr' + nHour;
-		objMinutes.className = 'min' + nMinutes;
-			// Таймер для обновления часов каждые несколько минут
-		g_nLastTime = objDate;
-
+		cssClock('hours','minutes',objDate);
+		socket.emit('my_event');
     });
 
-
+});
 
 function cssClock(hourElementId, minuteElementId, objDate)
 {
